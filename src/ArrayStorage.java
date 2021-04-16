@@ -4,9 +4,9 @@ import java.util.Arrays;
  * Array based storage for Resumes
  */
 public class ArrayStorage {
-    private final int STORAGE_INIT_SIZE = 100;
-    private final int STORAGE_GROW_SIZE = 50;
-    private Resume[] storage = new Resume[STORAGE_INIT_SIZE];
+    private final int INIT_CAPACITY = 100;
+    private final int GROWTH_CAPACITY = 50;
+    private Resume[] storage = new Resume[INIT_CAPACITY];
     private int size = 0;
 
     public void clear() {
@@ -16,10 +16,10 @@ public class ArrayStorage {
         size = 0;
     }
 
-    private void checkAndGrowIfNeed() {
+    private void ensureCAPACITY() {
         int length = storage.length;
         if (length == size) {
-            storage = Arrays.copyOf(storage, length + STORAGE_GROW_SIZE);
+            storage = Arrays.copyOf(storage, length + GROWTH_CAPACITY);
         }
     }
 
@@ -32,31 +32,30 @@ public class ArrayStorage {
         return -1;
     }
 
-    public void save(Resume r) {
-        checkAndGrowIfNeed();
-        int found = find(r.getUuid());
-        if (found != -1) {
-            storage[found] = r;
-        } else {
-            storage[size++] = r;
+    public void save(Resume resume) {
+        ensureCAPACITY();
+        int index = find(resume.getUuid());
+        if (index == -1) {
+            storage[size++] = resume;
         }
     }
 
     public Resume get(String uuid) {
-        int found = find(uuid);
-        if (found == -1) {
+        int index = find(uuid);
+        if (index == -1) {
             return null;
         }
-        return storage[found];
+        return storage[index];
     }
 
     public void delete(String uuid) {
-        int found = find(uuid);
-        if (found == -1) {
+        int index = find(uuid);
+        if (index == -1) {
             return;
         }
-        if ((size - 1 - found) >= 0) {
-            System.arraycopy(storage, found + 1, storage, found, size - 1 - found);
+        int shift = size - 1 - index;
+        if (shift > 0) {
+            System.arraycopy(storage, index + 1, storage, index, shift);
         }
         size--;
     }
