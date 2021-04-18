@@ -16,7 +16,7 @@ public class ArrayStorage {
         size = 0;
     }
 
-    private void ensureCAPACITY() {
+    private void ensureCapacity() {
         int length = storage.length;
         if (length == size) {
             storage = Arrays.copyOf(storage, length + GROWTH_CAPACITY);
@@ -33,7 +33,7 @@ public class ArrayStorage {
     }
 
     public void save(Resume resume) {
-        ensureCAPACITY();
+        ensureCapacity();
         int index = find(resume.getUuid());
         if (index == -1) {
             storage[size++] = resume;
