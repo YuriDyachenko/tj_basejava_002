@@ -1,3 +1,5 @@
+package webapp.model;
+
 /**
  * Initial resume class
  */

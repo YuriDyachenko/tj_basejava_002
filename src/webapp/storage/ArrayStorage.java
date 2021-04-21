@@ -1,3 +1,7 @@
+package webapp.storage;
+
+import webapp.model.Resume;
+
 import java.util.Arrays;
 
 /**
@@ -28,7 +32,7 @@ public class ArrayStorage {
     }
 
     /**
-     * find Resume by uuid, if storage does not contain it
+     * find webapp.model.Resume by uuid, if storage does not contain it
      * @return -1, if was not found
      */
     private int find(String uuid) {
@@ -41,7 +45,7 @@ public class ArrayStorage {
     }
 
     /**
-     * save Resume, if storage does not contain it
+     * save webapp.model.Resume, if storage does not contain it
      */
     public void save(Resume resume) {
         ensureCapacity();
@@ -55,7 +59,7 @@ public class ArrayStorage {
     }
 
     /**
-     * update Resume, if storage contains it
+     * update webapp.model.Resume, if storage contains it
      */
     public void update(Resume resume) {
         String uuid = resume.getUuid();
@@ -68,7 +72,7 @@ public class ArrayStorage {
     }
 
     /**
-     * get Resume by uuid, if storage contains it
+     * get webapp.model.Resume by uuid, if storage contains it
      */
     public Resume get(String uuid) {
         int index = find(uuid);
@@ -80,7 +84,7 @@ public class ArrayStorage {
     }
 
     /**
-     * delete Resume by uuid, if storage contains it
+     * delete webapp.model.Resume by uuid, if storage contains it
      */
     public void delete(String uuid) {
         int index = find(uuid);
@@ -111,14 +115,14 @@ public class ArrayStorage {
      * out error "was not found"
      */
     private void outNotFound(String uuid) {
-        outErrorMessage(String.format("Resume with uuid={%s} was not found!", uuid));
+        outErrorMessage(String.format("webapp.model.Resume with uuid={%s} was not found!", uuid));
     }
 
     /**
      * out error "already in storage"
      */
     private void outAlreadyInStorage(String uuid) {
-        outErrorMessage(String.format("Resume with uuid={%s} is already in storage!", uuid));
+        outErrorMessage(String.format("webapp.model.Resume with uuid={%s} is already in storage!", uuid));
     }
 
     /**
